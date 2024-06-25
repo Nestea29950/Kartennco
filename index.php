@@ -1,9 +1,10 @@
 <?php
+
 /*
 Plugin Name: Mon Plugin
 Description: Un plugin pour ajouter un Custom Post Type "Produits" avec un champ image.
 Version: 1.0
-Author: Votre Nom
+Author: Gaonarc'h William Colin Loic Erwan Siaunneau Le Moine Corentin
 */
 
 // Si ce fichier est appelé directement, abort.
@@ -26,3 +27,5 @@ add_action('admin_enqueue_scripts', 'mon_plugin_enqueue_admin_scripts');
 
 //Todo faire la dépendences du plugin acf if(acf ) instancier le plugin 
 //Todo vérifier que admin.js renvoie bien un console.log
+//Todo création d'un groupe fields acf sans faire à la main 
+//Todo faire la vue admin dans un includes toujours 
