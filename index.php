@@ -25,7 +25,25 @@ function mon_plugin_enqueue_admin_scripts($hook_suffix) {
 add_action('admin_enqueue_scripts', 'mon_plugin_enqueue_admin_scripts');
 
 
+
+function kartennco_menu() {
+    add_menu_page(
+        'Accueil du Plugin',         // Titre de la page
+        'kartennco',                // Titre du menu
+        'manage_options',            // Capacité
+        'kartennco',                // Slug du menu
+        'kartennco_page',           // Fonction callback
+        'dashicons-admin-home',      // Icône du menu
+        6                            // Position du menu
+    );
+}
+add_action('admin_menu', 'kartennco_menu');
+
+// Fonction callback pour afficher la page du plugin
+function kartennco_page() {
+    include plugin_dir_path(__FILE__) . 'views/home.php';
+}
+
 //Todo faire la dépendences du plugin acf if(acf ) instancier le plugin 
 //Todo vérifier que admin.js renvoie bien un console.log
-//Todo création d'un groupe fields acf sans faire à la main 
 //Todo faire la vue admin dans un includes toujours 
