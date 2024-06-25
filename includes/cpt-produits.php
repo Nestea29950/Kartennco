@@ -42,3 +42,51 @@ function mon_plugin_register_cpt_produits() {
 
 add_action('init', 'mon_plugin_register_cpt_produits');
 
+// Définition et enregistrement du groupe de champs ACF
+function mon_plugin_register_acf_fields() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group(array(
+            'key'                   => 'group_kartennco_produits',
+            'title'                 => 'Kartennco - Produits',
+            'fields'                => array(
+                array(
+                    'key'               => 'field_image_produit',
+                    'label'             => 'Image',
+                    'name'              => 'image',
+                    'type'              => 'image',
+                    'instructions'      => 'Ajouter une image pour le produit.',
+                    'required'          => 1,
+                    'return_format'     => 'array',
+                    'preview_size'      => 'thumbnail',
+                    'library'           => 'all',
+                    'min_width'         => '',
+                    'min_height'        => '',
+                    'min_size'          => '',
+                    'max_width'         => '',
+                    'max_height'        => '',
+                    'max_size'          => '',
+                    'mime_types'        => ''
+                )
+            ),
+            'location'              => array(
+                array(
+                    array(
+                        'param'         => 'post_type',
+                        'operator'      => '==',
+                        'value'         => 'produit',
+                    ),
+                ),
+            ),
+            'menu_order'            => 0,
+            'position'              => 'normal',
+            'style'                 => 'default',
+            'label_placement'       => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen'        => '',
+            'active'                => 1,
+            'description'           => '',
+        ));
+    }
+}
+
+add_action('acf/init', 'mon_plugin_register_acf_fields');
