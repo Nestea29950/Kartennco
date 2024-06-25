@@ -22,3 +22,7 @@ function mon_plugin_enqueue_admin_scripts($hook_suffix) {
     }
 }
 add_action('admin_enqueue_scripts', 'mon_plugin_enqueue_admin_scripts');
+
+
+//Todo faire la dépendences du plugin acf if(acf ) instancier le plugin 
+//Todo vérifier que admin.js renvoie bien un console.log
