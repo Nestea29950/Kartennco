@@ -16,23 +16,36 @@ if (!defined('ABSPATH')) {
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-produits.php';
 
 // Enqueue scripts for the admin area
-function mon_plugin_enqueue_admin_scripts($hook_suffix) {
-    if ('post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
-        wp_enqueue_media();
-        wp_enqueue_script('assets/admin_js', plugin_dir_url(__FILE__) . 'admin.js', array('jquery'), null, true);
-    }
+function mon_plugin_admin_scripts() {
+    // Enqueue your custom JS file
+    wp_enqueue_script(
+        'mon-plugin-admin-script', // Handle
+        plugin_dir_url(__FILE__) . 'assets/js/admin.js', // Path to JS file
+        array('jquery'), // Dependencies (optional)
+        null, // Version (optional)
+        true // Load in footer (optional)
+    );
 }
-add_action('admin_enqueue_scripts', 'mon_plugin_enqueue_admin_scripts');
+add_action('admin_enqueue_scripts', 'mon_plugin_admin_scripts');
 
-
+function mon_plugin_admin_styles() {
+    // Enqueue your custom CSS file
+    wp_enqueue_style(
+        'mon-plugin-admin-style', // Handle
+        plugin_dir_url(__FILE__) . 'assets/css/output.css', // Path to CSS file
+        array(), // Dependencies (optional)
+        null // Version (optional)
+    );
+}
+add_action('admin_enqueue_scripts', 'mon_plugin_admin_styles');
 
 function kartennco_menu() {
     add_menu_page(
-        'Accueil du Plugin',         // Titre de la page
+        'Kartennco',         // Titre de la page
         'kartennco',                // Titre du menu
         'manage_options',            // Capacité
-        'kartennco',                // Slug du menu
-        'kartennco_page',           // Fonction callback
+        'kartennco',                 // Slug du menu
+        'kartennco_page',            // Fonction callback
         'dashicons-admin-home',      // Icône du menu
         6                            // Position du menu
     );
@@ -44,6 +57,27 @@ function kartennco_page() {
     include plugin_dir_path(__FILE__) . 'views/home.php';
 }
 
+// Ajouter cette fonction pour gérer l'upload de l'image via AJAX
+function save_product_image() {
+    // Vérifier le nonce pour la sécurité
+    check_ajax_referer('my_plugin_nonce', '_ajax_nonce');
+
+    $post_id = intval($_POST['post_id']);
+    $image_id = intval($_POST['image_id']);
+
+    if (!current_user_can('edit_post', $post_id)) {
+        wp_send_json_error('Permission refusée');
+    }
+
+    if ($post_id && $image_id) {
+        update_field('field_image_produit', $image_id, $post_id);
+        wp_send_json_success('Image mise à jour');
+    } else {
+        wp_send_json_error('ID de post ou d\'image invalide');
+    }
+}
+add_action('wp_ajax_save_product_image', 'save_product_image');
+
+
+
 //Todo faire la dépendences du plugin acf if(acf ) instancier le plugin 
-//Todo vérifier que admin.js renvoie bien un console.log
-//Todo faire la vue admin dans un includes toujours 
