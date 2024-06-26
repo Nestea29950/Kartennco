@@ -59,13 +59,43 @@ function mon_plugin_register_acf_fields() {
                     'return_format'     => 'array',
                     'preview_size'      => 'thumbnail',
                     'library'           => 'all',
-                    'min_width'         => '',
-                    'min_height'        => '',
-                    'min_size'          => '',
-                    'max_width'         => '',
-                    'max_height'        => '',
-                    'max_size'          => '',
-                    'mime_types'        => ''
+                ),
+                array(
+                    'key'               => 'field_zones_de_securite',
+                    'label'             => 'Zones de sécurité',
+                    'name'              => 'zones_de_securite',
+                    'type'              => 'repeater',
+                    'instructions'      => 'Ajouter des zones de sécurité pour le produit.',
+                    'sub_fields'        => array(
+                        array(
+                            'key'       => 'field_zone_x',
+                            'label'     => 'X',
+                            'name'      => 'x',
+                            'type'      => 'number',
+                            'required'  => 1,
+                        ),
+                        array(
+                            'key'       => 'field_zone_y',
+                            'label'     => 'Y',
+                            'name'      => 'y',
+                            'type'      => 'number',
+                            'required'  => 1,
+                        ),
+                        array(
+                            'key'       => 'field_zone_width',
+                            'label'     => 'Largeur',
+                            'name'      => 'width',
+                            'type'      => 'number',
+                            'required'  => 1,
+                        ),
+                        array(
+                            'key'       => 'field_zone_height',
+                            'label'     => 'Hauteur',
+                            'name'      => 'height',
+                            'type'      => 'number',
+                            'required'  => 1,
+                        ),
+                    )
                 )
             ),
             'location'              => array(

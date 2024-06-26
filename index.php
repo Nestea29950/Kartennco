@@ -25,19 +25,31 @@ function mon_plugin_admin_scripts() {
         null, // Version (optional)
         true // Load in footer (optional)
     );
+
+    // Localize the script with new data
+    wp_localize_script('mon-plugin-admin-script', 'my_plugin_data', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('my_plugin_nonce')
+    ));
 }
 add_action('admin_enqueue_scripts', 'mon_plugin_admin_scripts');
 
-function mon_plugin_admin_styles() {
-    // Enqueue your custom CSS file
-    wp_enqueue_style(
-        'mon-plugin-admin-style', // Handle
-        plugin_dir_url(__FILE__) . 'assets/css/output.css', // Path to CSS file
-        array(), // Dependencies (optional)
-        null // Version (optional)
-    );
+function mon_plugin_admin_styles($hook_suffix) {
+    // Vérifier si la page courante est celle de votre plugin
+    $plugin_page = 'kartennco'; // Slug de la page de votre plugin
+
+    if ($hook_suffix === 'toplevel_page_' . $plugin_page) {
+        // Enqueue your custom CSS file
+        wp_enqueue_style(
+            'mon-plugin-admin-style', // Handle
+            plugin_dir_url(__FILE__) . 'assets/css/output.css', // Path to CSS file
+            array(), // Dependencies (optional)
+            null // Version (optional)
+        );
+    }
 }
 add_action('admin_enqueue_scripts', 'mon_plugin_admin_styles');
+
 
 function kartennco_menu() {
     add_menu_page(
@@ -77,6 +89,39 @@ function save_product_image() {
     }
 }
 add_action('wp_ajax_save_product_image', 'save_product_image');
+
+// Action AJAX pour récupérer les zones de sécurité
+add_action('wp_ajax_get_product_zones', 'get_product_zones');
+function get_product_zones() {
+    check_ajax_referer('my_plugin_nonce', '_ajax_nonce');
+    $post_id = intval($_GET['post_id']);
+    $zones = get_field('zones_de_securite', $post_id);
+
+    if ($zones) {
+        wp_send_json_success(['zones' => $zones]);
+    } else {
+        wp_send_json_error('Aucune zone trouvée.');
+    }
+}
+
+// Action AJAX pour sauvegarder les zones de sécurité
+add_action('wp_ajax_save_product_zones', 'save_product_zones');
+function save_product_zones() {
+    check_ajax_referer('my_plugin_nonce', '_ajax_nonce');
+    $post_id = intval($_POST['post_id']);
+    $zones = $_POST['zones'];
+
+    if (!current_user_can('edit_post', $post_id)) {
+        wp_send_json_error('Permission refusée');
+    }
+
+    update_field('zones_de_securite', $zones, $post_id);
+    wp_send_json_success();
+}
+
+//Todo faire la dépendences du plugin acf if(acf ) instancier le plugin 
+
+
 
 
 
