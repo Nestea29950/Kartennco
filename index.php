@@ -69,26 +69,7 @@ function kartennco_page() {
     include plugin_dir_path(__FILE__) . 'views/home.php';
 }
 
-// Ajouter cette fonction pour gérer l'upload de l'image via AJAX
-function save_product_image() {
-    // Vérifier le nonce pour la sécurité
-    check_ajax_referer('my_plugin_nonce', '_ajax_nonce');
 
-    $post_id = intval($_POST['post_id']);
-    $image_id = intval($_POST['image_id']);
-
-    if (!current_user_can('edit_post', $post_id)) {
-        wp_send_json_error('Permission refusée');
-    }
-
-    if ($post_id && $image_id) {
-        update_field('field_image_produit', $image_id, $post_id);
-        wp_send_json_success('Image mise à jour');
-    } else {
-        wp_send_json_error('ID de post ou d\'image invalide');
-    }
-}
-add_action('wp_ajax_save_product_image', 'save_product_image');
 
 // Action AJAX pour récupérer les zones de sécurité
 add_action('wp_ajax_get_product_zones', 'get_product_zones');
