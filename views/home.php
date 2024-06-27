@@ -51,31 +51,29 @@
 </div>
 
 <!-- Modal améliorée avec Tailwind CSS -->
-<div id="imageModal" class="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden">
-    <div class="bg-white p-4 rounded-lg shadow-lg overflow-hidden max-w-3xl max-h-screen relative">
-        <button id="closeModal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
+<div id="imageModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg overflow-hidden max-w-3xl max-h-screen relative">
+        <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-        <div class="flex">
-    <div class="relative">
-        <!-- Ajoutez une classe supplémentaire pour ajuster la largeur de l'image -->
-        <img src="" alt="Image produit" id="modalImage" class="w-48 h-auto modal-image">
-    </div>
-    <div class="bg-white w-64 p-4 flex flex-col items-center justify-center">
-        <button id="addZoneButton" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 mb-2 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-auto w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-        </button>
-        <!-- Nouveau bouton Enregistrer -->
-        <button id="saveZonesButton" class="mt-2 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-500 focus:outline-none">Enregistrer</button>
+        <div class="flex space-x-6">
+            <div class="relative">
+                <img src="" alt="Image produit" id="modalImage" class="w-64 h-auto rounded-lg shadow-md">
+            </div>
+            <div class="flex flex-col items-center justify-center space-y-4">
+                <button id="addZoneButton" class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-auto w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                </button>
+                <button id="saveZonesButton" class="px-5 py-3 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none shadow-md">Enregistrer</button>
+            </div>
+        </div>
     </div>
 </div>
 
-    </div>
-</div>
 
 <!-- Script JavaScript pour gérer la modal, la zone de sécurité, et le redimensionnement -->
 <script>
