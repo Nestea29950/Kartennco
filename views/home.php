@@ -77,7 +77,6 @@
     </div>
 </div>
 
-
 <!-- Script JavaScript pour gérer la modal, la zone de sécurité, et le redimensionnement -->
 <script>
   jQuery(document).ready(function($) {

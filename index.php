@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Mon Plugin
+Plugin Name: Kartennco
 Description: Un plugin pour ajouter un Custom Post Type "Produits" avec un champ image.
 Version: 1.0
 Author: Gaonarc'h William Colin Loic Erwan Siaunneau Le Moine Corentin
