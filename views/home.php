@@ -108,7 +108,6 @@
                 if (response.success) {
                     response.data.zones.forEach(zone => {
                         addZone(zone.x, zone.y, zone.width, zone.height);
-                        
                     });
                 } else {
                     console.error('Erreur lors du chargement des zones de sécurité.');
@@ -128,7 +127,8 @@
 
     // Ajouter une nouvelle zone
     $('#addZoneButton').on('click', function() {
-        addZone(10, 10, 100, 100); // Valeurs par défaut, à ajuster selon vos besoins
+        modalImage.parent().find('.zone-securite').remove(); // Supprimer les zones existantes
+        addZone(10, 10, 100, 100); // Ajouter une nouvelle zone
     });
 
     // Sauvegarder les zones de sécurité
@@ -276,15 +276,13 @@
 });
 
 
-
-
 </script>
 
 <style>
     
     .resize {
         position: absolute;
-        border: 2px solid gray;
+        border: 2px dotted gray;
     }
 
     .resizer {
